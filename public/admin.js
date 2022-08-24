@@ -27,26 +27,22 @@ function showForm(books) {
     let desc = document.getElementById('description');
     let url = document.getElementById('img-url');
     let submit_btn = document.getElementById('submit');
-    submit_btn.addEventListener('click', async () => {
-        let book = {
-            "id": books.length + 1,
-            "title": title.value,
-            "description": desc.value,
-            "year": new Date().getFullYear(),
-            "quantity": 1,
-            "imageURL": url.value
-        };
-        //books.push(book);
-
+    submit_btn.addEventListener('click', async () => {        
         let response = await fetch('http://localhost:3001/addBook', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(book)
+            body: JSON.stringify({
+                "id": books.length + 1,
+                "title": title.value,
+                "description": desc.value,
+                "year": new Date().getFullYear(),
+                "quantity": 1,
+                "imageURL": url.value
+            })
         });
         let newBook = await response.json();
-        //showTitles(books);
     });
 }
 
